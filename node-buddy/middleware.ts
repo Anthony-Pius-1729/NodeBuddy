@@ -4,7 +4,6 @@ import { verifyToken, extractTokenFromHeader } from "./lib/auth";
 // Define routes that require authentication
 const protectedRoutes = ["/api/protected", "/api/user"];
 
-// Define routes that should redirect authenticated users (like login/register pages)
 const authRoutes = ["/login", "/register"];
 
 export function middleware(request: NextRequest) {
@@ -15,10 +14,9 @@ export function middleware(request: NextRequest) {
     pathname.startsWith(route)
   );
 
-  // Check if the current route is an auth route
+
   const isAuthRoute = authRoutes.some((route) => pathname.startsWith(route));
 
-  // Get the authorization header
   const authHeader = request.headers.get("authorization");
   const token = extractTokenFromHeader(authHeader);
 
